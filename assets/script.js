@@ -4,15 +4,48 @@
     //segmented by hours in the day 
 //form to enter text
     //button to save text
-var planner = document.getElementById("planner");
+// var planner = document.getElementById("planner");
+var planner = $("#planner");
 
-var today = moment();
+function renderTable () {
+    var times = [
+        moment("09", "HH"),
+        moment("10", "HH"),
+        moment("11", "HH"),
+        moment("12", "HH"),
+        moment("13", "HH"),
+        moment("14", "HH"),
+        moment("15", "HH"),
+        moment("16", "HH"),
+        moment("17", "HH"),
+    ]
+    planner.each(times, function(this,  {
+
+    })
+}
+// planner.append("<li>dog</li>")
 
 
-today.format("dddd, MMMM Do YYYY, h:mm:ss a")
-console.log(today)
+var dateTime = null,
+        date = null;
 
-$("#currentDay").text(today)
+var update = function () {
+    date = moment(new Date())
+    datetime.html(date.format('dddd, MMMM Do YYYY, h:mm:ss a'));
+}
+
+$(document).ready(function(){
+    datetime = $('#currentDay')
+    update();
+    setInterval(update, 1000);
+});
+
+var nine = moment("09", "HH")
+console.log(nine)
+
+
+
+// var planner = $("#planner")
 
 
 
