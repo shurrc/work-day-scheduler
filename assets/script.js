@@ -31,17 +31,13 @@ function renderTable () {
             savedNote = ""
         }
         planner.append("<div class='row'><p class='col-1'>" + times[i] + "</p><textarea class='col-10 border' value='' >" + savedNote + "</textarea><button class='col-1 btn save-button'data-time='"+ times[i] + "'>💾</button></div>");
-            // $('.row').removeClass('past present future')
         if (currentHour < times[i]) {
-            $('.row').removeClass('.present .past').addClass('future');
+            $('.row').addClass('future');
         } else if (currentHour == times[i]) {
-            $('.row').removeClass('.future .past').addClass('present')
+            $('.row').addClass('present')
         } else if (currentHour > times[i]) {
-            $('.row').removeClass('.present .future').addClass('past')
+            $('.row').addClass('past')
         }
-        
-        // console.log(savedNote)
-
     }
     $(".save-button").each(function()   {
         $(this).click(saveNote)
@@ -50,20 +46,10 @@ function renderTable () {
 
 }
 renderTable()
-// currentTime()
+
 
 console.log(currentHour)
 
-
-// function currentTime (){
-//     if (currentHour > times[i]) {
-//         TimeBlock.addClass('past');
-//     } else if (currentHour = times[i]) {
-//         TimeBlock.addClass('present')
-//     } else {
-//         TimeBlock.addClass('future')
-//     }
-// }
 
 function saveNote(event) {
     console.log(event)
@@ -74,10 +60,6 @@ function saveNote(event) {
     console.log(noteToSave)
 }
     
-
-//if statement if timeblock is less than current time then reassign class name that corresponds to desired styling changegit
-// planner.append("<li>dog</li>")
-
 
 var dateTime = null,
         date = null;
