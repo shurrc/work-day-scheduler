@@ -5,24 +5,77 @@
 //form to enter text
     //button to save text
 // var planner = document.getElementById("planner");
+var TimeBlock = $(".row");
 var planner = $("#planner");
+var times = [
+    moment("09", "HH").format("H"),
+    moment("10", "HH").format("H"),
+    moment("11", "HH").format("H"),
+    moment("12", "HH").format("H"),
+    moment("13", "HH").format("H"),
+    moment("14", "HH").format("H"),
+    moment("15", "HH").format("H"),
+    moment("16", "HH").format("H"),
+    moment("17", "HH").format("H"),
+]
+var currentHour = moment().hour()
 
 function renderTable () {
-    var times = [
-        moment("09", "HH"),
-        moment("10", "HH"),
-        moment("11", "HH"),
-        moment("12", "HH"),
-        moment("13", "HH"),
-        moment("14", "HH"),
-        moment("15", "HH"),
-        moment("16", "HH"),
-        moment("17", "HH"),
-    ]
-    planner.each(times, function(this,  {
+    for (var i=0; i < times.length; i++) {
+        //check if current hour is < than times[i] - block will be in  the future
 
+        //check if  current hour === times[i] - block will be the  presesnt
+        //else block is in the past
+        var savedNote = localStorage.getItem(times[i])
+        if (!savedNote) {
+            savedNote = ""
+        }
+        planner.append("<div class='row'><p class='col-1'>" + times[i] + "</p><textarea class='col-10 border' value='' >" + savedNote + "</textarea><button class='col-1 btn save-button'data-time='"+ times[i] + "'>💾</button></div>");
+            // $('.row').removeClass('past present future')
+        if (currentHour < times[i]) {
+            $('.row').removeClass('.present .past').addClass('future');
+        } else if (currentHour == times[i]) {
+            $('.row').removeClass('.future .past').addClass('present')
+        } else if (currentHour > times[i]) {
+            $('.row').removeClass('.present .future').addClass('past')
+        }
+        
+        // console.log(savedNote)
+
+    }
+    $(".save-button").each(function()   {
+        $(this).click(saveNote)
     })
+
+
 }
+renderTable()
+// currentTime()
+
+console.log(currentHour)
+
+
+// function currentTime (){
+//     if (currentHour > times[i]) {
+//         TimeBlock.addClass('past');
+//     } else if (currentHour = times[i]) {
+//         TimeBlock.addClass('present')
+//     } else {
+//         TimeBlock.addClass('future')
+//     }
+// }
+
+function saveNote(event) {
+    console.log(event)
+    var noteToSave = event.target.parentElement.children[1].value
+    var timeSlot = event.target.dataset.time
+    console.log(timeSlot)
+    localStorage.setItem(timeSlot, noteToSave)
+    console.log(noteToSave)
+}
+    
+
+//if statement if timeblock is less than current time then reassign class name that corresponds to desired styling changegit
 // planner.append("<li>dog</li>")
 
 
@@ -39,13 +92,6 @@ $(document).ready(function(){
     update();
     setInterval(update, 1000);
 });
-
-var nine = moment("09", "HH")
-console.log(nine)
-
-
-
-// var planner = $("#planner")
 
 
 
